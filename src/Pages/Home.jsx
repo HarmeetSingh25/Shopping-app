@@ -1,12 +1,12 @@
 import React from 'react'
 import Card from '../Component/Card'
 
-const Home = ({products , settoggle, setcart}) => {
-    console.log(products);
-    
+const Home = ({ products, settoggle, setcart, cart }) => {
+  console.log(products);
+
   return (
     <div>
-         <div className="bg-gradient-to-r from-black to-gray-800 text-white py-12 text-center">
+      <div className="bg-gradient-to-r from-black to-gray-800 text-white py-12 text-center">
         <h1 className="text-4xl font-bold">Welcome to ShopMate 🛍️</h1>
         <p className="mt-3 text-gray-300">
           Discover the best products at unbeatable prices
@@ -22,7 +22,7 @@ const Home = ({products , settoggle, setcart}) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map((elem) => (
-            <Card setcart={setcart} key={elem.id} elem={elem} />
+            <Card cart={cart} setcart={setcart} key={elem.id} elem={elem} />
           ))}
         </div>
 

@@ -1,8 +1,9 @@
 import React from "react";
 import { ShoppingCart } from "lucide-react";
 
-const Card = ({ elem, setcart }) => {
+const Card = ({ elem, setcart, cart }) => {
 
+    const cartItem = cart.find(item => item.id === elem.id);
 
     return (
 
@@ -35,13 +36,26 @@ const Card = ({ elem, setcart }) => {
                     </button>
 
                     {/* Add to Cart Button */}
-                    <button onClick={() => {
-                        console.log(setcart);
-                        setcart(prev => [...prev, elem])
-                    }} className="flex-1 flex text-xs items-center text-nowrap  justify-center gap-2 border border-black text-black py-2 rounded-xl hover:bg-black hover:text-white transition duration-300 font-medium">
-                        <ShoppingCart size={18} />
-                        Add to Cart
-                    </button>
+
+                    {cartItem ? (
+
+                        <div className="flex-1 flex items-center justify-center gap-3 border border-black text-black py-2 rounded-xl">
+
+                            <button>+</button>
+
+                            <p>{cartItem.quantity}</p>
+
+                            <button>-</button>
+                        </div>
+                    )
+                        : (<button onClick={() => {
+                            return setcart(prev => [...prev, { ...elem, quantity: 1 }])
+                        }}
+                            className="flex-1 flex text-xs items-center text-nowrap  justify-center gap-2 border border-black text-black py-2 rounded-xl hover:bg-black hover:text-white transition duration-300 font-medium">
+                            <ShoppingCart size={18} />
+                            Add to Cart
+                        </button>)}
+
 
                 </div>
 
