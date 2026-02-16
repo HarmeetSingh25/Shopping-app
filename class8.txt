@@ -1,0 +1,5 @@
+Context api 
+usecontext 
+context provider
+state value cannot change in directly in global 
+setitem((prev)=> {...prev , item})
