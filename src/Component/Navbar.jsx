@@ -1,7 +1,7 @@
 import React from "react";
 import { CircleUserRound, ShoppingCart, Heart } from "lucide-react";
 
-const Navbar = () => {
+const Navbar = ({ settoggle }) => {
     return (
         <nav className="w-full bg-white shadow-md px-8 py-4 flex items-center justify-between sticky top-0 z-50">
 
@@ -17,10 +17,10 @@ const Navbar = () => {
 
             {/* Navigation Links */}
             <div className="hidden md:flex items-center gap-8 text-gray-600 font-medium">
-                <p className="cursor-pointer hover:text-black transition">Home</p>
+                <p onClick={() => { settoggle(true) }} className="cursor-pointer hover:text-black transition">Home</p>
                 <div className="flex items-center gap-1 cursor-pointer hover:text-black transition">
                     <ShoppingCart size={20} />
-                    <span>Cart</span>
+                    <span onClick={() => { settoggle(false) }}>Cart</span>
                 </div>
                 <div className="flex items-center gap-1 cursor-pointer hover:text-black transition">
                     <Heart size={20} />

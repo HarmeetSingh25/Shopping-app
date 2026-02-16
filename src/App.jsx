@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Navbar from './Component/Navbar'
 import Card from './Component/Card'
+import Home from "./Pages/Home";
+import Cart from './Pages/Cart'
 
 const App = () => {
   const [products, setproducts] = useState([
@@ -245,33 +247,25 @@ const App = () => {
       }
     }
   ])
+  const [cart, setcart] = useState([ {
+      "id": 1,
+      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+      "price": 109.95,
+      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
+      "rating": {
+        "rate": 3.9,
+        "count": 120
+      }
+    }])
+  const [toggle, settoggle] = useState(true)
   return (
     <div className="min-h-screen bg-gray-100">
 
-      <Navbar />
-
+      <Navbar settoggle={settoggle} />
+      {toggle ? <Home setcart={setcart} products={products} /> : <Cart cart={cart} />}
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-black to-gray-800 text-white py-12 text-center">
-        <h1 className="text-4xl font-bold">Welcome to ShopMate 🛍️</h1>
-        <p className="mt-3 text-gray-300">
-          Discover the best products at unbeatable prices
-        </p>
-      </div>
-
-      {/* Products Section */}
-      <div className="max-w-7xl mx-auto px-6 py-10">
-
-        <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-          Featured Products
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map((elem) => (
-            <Card key={elem.id} elem={elem} />
-          ))}
-        </div>
-
-      </div>
 
     </div>
   );
