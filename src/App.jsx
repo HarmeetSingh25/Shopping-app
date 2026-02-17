@@ -247,7 +247,7 @@ const App = () => {
       }
     }
   ])
-  const [cart, setcart] = useState([ ])
+  const [cart, setcart] = useState([])
   const [toggle, settoggle] = useState(true)
   return (
     <div className="min-h-screen bg-gray-100">

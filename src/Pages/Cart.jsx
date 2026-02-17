@@ -1,7 +1,9 @@
 import React from "react";
 import Card from "../Component/Card";
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart  }) => {
+  console.log(cart);
+  
 
   const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
 
@@ -14,7 +16,7 @@ const Cart = ({ cart }) => {
       </h1>
 
       {cart.length === 0 ? (
-        
+
         /* Empty State */
         <div className="flex flex-col items-center justify-center mt-20 text-gray-600">
           <h2 className="text-2xl font-semibold">Your cart is empty</h2>
@@ -27,7 +29,7 @@ const Cart = ({ cart }) => {
       ) : (
 
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Cart Items Grid */}
           <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
             {cart.map((elem) => (

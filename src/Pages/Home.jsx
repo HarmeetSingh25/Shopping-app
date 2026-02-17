@@ -3,6 +3,38 @@ import Card from '../Component/Card'
 
 const Home = ({ products, settoggle, setcart, cart }) => {
   console.log(products);
+  let addtocart = (id) => {
+    const product = products.find(elem => elem.id === id);
+
+    setcart(prevCart => {
+      const existingItem = prevCart.find(item => item.id === id);
+
+      if (existingItem) {
+        // Increase quantity
+        return prevCart.map(item =>
+          item.id === id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        // Add new item
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+  };
+  let substract = (id) => {
+    () => {
+      setcart(prev =>
+        prev
+          .map(item =>
+            item.id === id
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter(item => item.quantity > 0)
+      );
+    }
+  }
 
   return (
     <div>
@@ -22,7 +54,7 @@ const Home = ({ products, settoggle, setcart, cart }) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map((elem) => (
-            <Card cart={cart} setcart={setcart} key={elem.id} elem={elem} />
+            <Card substract={substract} addtocart={addtocart} cart={cart} setcart={setcart} key={elem.id} elem={elem} />
           ))}
         </div>
 

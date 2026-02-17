@@ -1,15 +1,14 @@
 import React from "react";
 import { ShoppingCart } from "lucide-react";
 
-const Card = ({ elem, setcart, cart }) => {
+const Card = ({ elem, setcart, cart, addtocart }) => {
 
-    const cartItem = cart.find(item => item.id === elem.id);
+    const cartItem = cart?.find(item => item.id === elem.id);
+
 
     return (
-
         <div className="w-64 bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group">
 
-            {/* Product Image */}
             <div className="w-full h-60 overflow-hidden">
                 <img
                     src={elem.image}
@@ -18,7 +17,6 @@ const Card = ({ elem, setcart, cart }) => {
                 />
             </div>
 
-            {/* Product Info */}
             <div className="p-4 flex flex-col gap-2">
                 <h1 className="text-lg font-semibold text-gray-800 line-clamp-1">
                     {elem.title}
@@ -27,42 +25,63 @@ const Card = ({ elem, setcart, cart }) => {
                 <p className="text-xl font-bold text-green-600">
                     ${elem.price}
                 </p>
+
                 <div className="flex items-center gap-3 mt-3">
 
-                    {/* Buy Now Button */}
-                    <button className="flex-1 flex items-center text-xs  justify-center gap-2 bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition duration-300 font-medium">
+                    <button className="flex-1 flex items-center text-xs justify-center gap-2 bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition duration-300 font-medium">
                         <ShoppingCart size={18} />
                         Buy Now
                     </button>
 
-                    {/* Add to Cart Button */}
-
                     {cartItem ? (
+                        <div className="flex-1 flex items-center justify-center gap-3 border border-black text-black py-2 rounded-xl bg-gray-50 hover:bg-gray-100 transition">
 
-                        <div className="flex-1 flex items-center justify-center gap-3 border border-black text-black py-2 rounded-xl">
-
-                            <button>+</button>
+                            <button
+                                onClick={() =>
+                                    addtocart(cartItem.id)
+                                }
+                                className="px-2 font-bold"
+                            >
+                                +
+                            </button>
 
                             <p>{cartItem.quantity}</p>
 
-                            <button>-</button>
+                            <button
+                                onClick={() => {
+                                    setcart(prev =>
+                                        prev
+                                            .map(item =>
+                                                item.id === elem.id
+                                                    ? { ...item, quantity: item.quantity - 1 }
+                                                    : item
+                                            )
+                                            .filter(item => item.quantity > 0)
+                                    );
+                                }}
+                                className="px-2 font-bold"
+                            >
+                                -
+                            </button>
+
                         </div>
-                    )
-                        : (<button onClick={() => {
-                            return setcart(prev => [...prev, { ...elem, quantity: 1 }])
-                        }}
-                            className="flex-1 flex text-xs items-center text-nowrap  justify-center gap-2 border border-black text-black py-2 rounded-xl hover:bg-black hover:text-white transition duration-300 font-medium">
+                    ) : (
+                        <button
+                            onClick={() => {
+                                setcart(prev => [...prev, { ...elem, quantity: 1 }]);
+                            }}
+                            className="flex-1 flex text-xs items-center justify-center gap-2 border border-black text-black py-2 rounded-xl hover:bg-black hover:text-white transition duration-300 font-medium"
+                        >
                             <ShoppingCart size={18} />
                             Add to Cart
-                        </button>)}
-
+                        </button>
+                    )}
 
                 </div>
-
             </div>
-
         </div>
     );
 };
 
 export default Card;
+
